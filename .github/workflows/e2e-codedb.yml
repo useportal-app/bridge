@@ -29,9 +29,11 @@ jobs:
       - name: install codedb
         run: |
           mkdir -p "$HOME/bin"
-          curl -fsSL "https://codedb.codegraff.com/v0.2.4/codedb-linux-x86_64" -o "$HOME/bin/codedb"
+          VERSION=$(curl -fsSL https://codedb.codegraff.com/latest.json | grep -o '"version":"[^"]*"' | cut -d'"' -f4)
+          curl -fsSL "https://codedb.codegraff.com/v${VERSION}/codedb-linux-x86_64" -o "$HOME/bin/codedb"
           chmod +x "$HOME/bin/codedb"
           echo "$HOME/bin" >> "$GITHUB_PATH"
+          echo "Installed codedb v${VERSION}"
         env:
           CODEDB_NO_TELEMETRY: "1"
       - name: run codedb e2e tests
