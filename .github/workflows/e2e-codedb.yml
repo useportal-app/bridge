@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir -p "$HOME/bin"
           gh release download --repo justrach/codedb --pattern "codedb-linux-x86_64" --dir "$HOME/bin"
+          mv "$HOME/bin/codedb-linux-x86_64" "$HOME/bin/codedb"
           chmod +x "$HOME/bin/codedb"
         env:
           GH_TOKEN: ${{ github.token }}
